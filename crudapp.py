@@ -53,20 +53,29 @@ def delete_employee(connection, emp_no):
 def main():
     connection = create_connection(config)
 
-    # Calling method delete
-    print("Delete employee")
-    delete_employee(connection,999999)
+    if connection is None:
+        print("Connection failed.")
+        return
 
-    # Calling method create a new salary
-    create_salaries(connection,999999,130000,'1985-10-20','1986-10-20')
+    try:
+        # Calling method delete
+        print("Delete employee")
+        delete_employee(connection, 999999)
 
-    # Calling method read
-    print("Read salaries upper 100000")
-    read_salaries(connection)
+        # Calling method create a new salary
+        create_salaries(connection, 999999, 130000, '1985-10-20', '1986-10-20')
 
-    # Calling method update
-    print("Update employee data")
-    update_employee(connection,999999,130000,'1985-10-20','1986-10-20')
+        # Calling method read
+        print("Read salaries upper 100000")
+        read_salaries(connection)
 
-if __name__ == "__main__":
+        # Calling method update
+        print("Update employee data")
+        update_employee(connection, 999999, 130000, '1985-10-20', '1986-10-20')
+    finally:
+        if connection:
+            connection.close()
+            print("Connection closed.")
+            
+    if __name__ == "__main__":
     main()
